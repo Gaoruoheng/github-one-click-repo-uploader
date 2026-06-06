@@ -1,0 +1,11 @@
+# Windows
+[Dd]esktop.ini
+Thumbs.db
+$RECYCLE.BIN/
+
+# Logs
+*.log
+
+# Local scratch
+tmp/
+temp/
