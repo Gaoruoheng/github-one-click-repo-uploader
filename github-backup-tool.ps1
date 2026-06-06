@@ -3,9 +3,10 @@ Add-Type -AssemblyName System.Drawing
 
 $ToolRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ConfigPath = Join-Path $ToolRoot "backup-tool.config.json"
+$AppTitle = "GitHub一键上传仓库代码工具"
 
 if (-not (Test-Path $ConfigPath)) {
-  [System.Windows.Forms.MessageBox]::Show("缺少配置文件：$ConfigPath", "GitHub 备份工具", "OK", "Error") | Out-Null
+  [System.Windows.Forms.MessageBox]::Show("缺少配置文件：$ConfigPath", $AppTitle, "OK", "Error") | Out-Null
   exit 1
 }
 
@@ -102,7 +103,7 @@ function Show-Error {
   param([string]$Message)
 
   Write-Log "错误：$Message"
-  [System.Windows.Forms.MessageBox]::Show($Message, "GitHub 备份工具", "OK", "Error") | Out-Null
+  [System.Windows.Forms.MessageBox]::Show($Message, $AppTitle, "OK", "Error") | Out-Null
 }
 
 function Upload-Backup {
@@ -126,7 +127,7 @@ function Upload-Backup {
     Run-Git -ArgsList @("pull", "--rebase", $RemoteName, $BranchName) | Out-Null
     Run-Git -ArgsList @("push", "-u", $RemoteName, $BranchName) | Out-Null
     Write-Log "上传备份完成。"
-    [System.Windows.Forms.MessageBox]::Show("上传备份完成。", "GitHub 备份工具", "OK", "Information") | Out-Null
+    [System.Windows.Forms.MessageBox]::Show("上传备份完成。", $AppTitle, "OK", "Information") | Out-Null
   } catch {
     Show-Error $_.Exception.Message
   } finally {
@@ -150,7 +151,7 @@ function Download-Latest {
     Run-Git -ArgsList @("fetch", $RemoteName, $BranchName) | Out-Null
     Run-Git -ArgsList @("merge", "--ff-only", "$RemoteName/$BranchName") | Out-Null
     Write-Log "下载最新代码完成。"
-    [System.Windows.Forms.MessageBox]::Show("下载最新代码完成。", "GitHub 备份工具", "OK", "Information") | Out-Null
+    [System.Windows.Forms.MessageBox]::Show("下载最新代码完成。", $AppTitle, "OK", "Information") | Out-Null
   } catch {
     Show-Error $_.Exception.Message
   } finally {
@@ -172,13 +173,13 @@ function Check-Status {
 }
 
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "GitHub 备份工具 - Kuma Closet"
+$form.Text = $AppTitle
 $form.StartPosition = "CenterScreen"
 $form.Size = New-Object System.Drawing.Size(780, 560)
 $form.MinimumSize = New-Object System.Drawing.Size(720, 500)
 
 $titleLabel = New-Object System.Windows.Forms.Label
-$titleLabel.Text = "Kuma Closet GitHub 备份"
+$titleLabel.Text = "GitHub一键上传仓库代码工具"
 $titleLabel.Location = New-Object System.Drawing.Point(18, 16)
 $titleLabel.Size = New-Object System.Drawing.Size(520, 28)
 $titleLabel.Font = New-Object System.Drawing.Font("Microsoft YaHei UI", 14, [System.Drawing.FontStyle]::Bold)

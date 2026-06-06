@@ -1,6 +1,8 @@
-# Kuma GitHub 备份工具
+# GitHub一键上传仓库代码工具
 
-这是一个给 Kuma Closet 衣柜小程序使用的 Windows 本地备份工具。它提供图形界面按钮，方便你不用手敲 Git 命令，也能把代码上传到 GitHub，或者从 GitHub 下载最新代码。
+这是一个 Windows 本地图形化 GitHub 工具。它提供常用按钮，方便你不用手敲 Git 命令，也能把指定仓库代码一键上传到 GitHub，或者从 GitHub 下载最新代码。
+
+当前配置默认指向 Kuma Closet 衣柜小程序项目，也可以修改配置文件复用到其他 Git 仓库。
 
 ## 功能
 
